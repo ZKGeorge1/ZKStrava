@@ -14,8 +14,12 @@ export default function ProofOfStravaContent() {
   const [year, setYear] = useState('2024');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   useEffect(() => {
+    // Check if we're on Vercel (production)
+    setIsDemoMode(window.location.hostname.includes('vercel.app'));
+
     const urlToken = searchParams?.get('token');
     const urlAthlete = searchParams?.get('athlete');
 
@@ -101,6 +105,28 @@ export default function ProofOfStravaContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8">
+        {isDemoMode && (
+          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4 mb-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">⚡</span>
+              <div className="flex-1">
+                <h3 className="font-bold text-yellow-900 mb-1">Live UI Demo</h3>
+                <p className="text-sm text-yellow-800 mb-2">
+                  This is a demonstration of the interface. Full ZK proof generation requires running locally.
+                </p>
+                <a 
+                  href="https://github.com/ZKGeorge1/ZKStrava" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold text-blue-600 hover:text-blue-800 underline"
+                >
+                  View on GitHub & Run Locally →
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="text-center mb-8">
           <div className="text-6xl mb-4">🏃‍♂️🔒</div>
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
@@ -219,7 +245,7 @@ export default function ProofOfStravaContent() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold py-4 rounded-lg hover:opacity-90 transition disabled:opacity-50"
               >
-                {loading ? 'Generating Proof...' : 'Generate Proof 🚀'}
+                {loading ? 'Generating Proof...' : isDemoMode ? 'Try Demo (UI Only)' : 'Generate Proof 🚀'}
               </button>
             </form>
           </>
@@ -248,9 +274,20 @@ export default function ProofOfStravaContent() {
             {result.error ? (
               <div>
                 <h3 className="text-xl font-bold text-red-800 mb-2">
-                  ❌ Error
+                  {result.demoMode ? '⚡ Demo Mode' : '❌ Error'}
                 </h3>
-                <p className="text-red-700">{result.error}</p>
+                <p className="text-red-700 whitespace-pre-line">{result.error}</p>
+                {result.demoMode && (
+                  <div className="mt-4 p-3 bg-white rounded-lg">
+                    <p className="text-sm font-semibold text-gray-800 mb-2">To run the full zkApp:</p>
+                    <ol className="text-sm text-gray-700 space-y-1 list-decimal list-inside">
+                      <li>Clone: <code className="bg-gray-100 px-1 rounded">git clone https://github.com/ZKGeorge1/ZKStrava.git</code></li>
+                      <li>Install dependencies: <code className="bg-gray-100 px-1 rounded">npm install</code></li>
+                      <li>Run locally: <code className="bg-gray-100 px-1 rounded">npm run dev</code></li>
+                      <li>Connect Strava and generate real ZK proofs!</li>
+                    </ol>
+                  </div>
+                )}
               </div>
             ) : result.qualifies ? (
               <div>
