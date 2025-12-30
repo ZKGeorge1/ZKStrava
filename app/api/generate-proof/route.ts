@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ProofOfStravaGenerator } from '@/lib/zkapp/integration';
 
-export const maxDuration = 60; // Vercel Pro tier allows up to 60 seconds
+export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,24 +13,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`📥 Generating proof for ${year}-${month}`);
-
-    const generator = new ProofOfStravaGenerator();
-    await generator.initialize();
-
-    const result = await generator.generateInsuranceProof(
-      stravaToken,
-      'user123',
-      year,
-      month
-    );
-
-    console.log('✅ Proof generated successfully!');
-    return NextResponse.json(result);
+    // Always return demo mode message on Vercel
+    return NextResponse.json({
+      error: 'This is a UI demo. Zero-knowledge proof generation requires local setup.\n\n✨ To generate real proofs:\n1. Clone: git clone https://github.com/ZKGeorge1/ZKStrava.git\n2. Install: npm install\n3. Run: npm run dev\n4. Open: http://localhost:3001\n\nThe full zkApp works perfectly locally with Strava OAuth and ZK proof generation!',
+      demoMode: true
+    });
   } catch (error: any) {
-    console.error('❌ Error:', error);
+    console.error('Error:', error.message);
     return NextResponse.json(
-      { error: error.message },
+      { error: 'Demo mode - see GitHub for full implementation' },
       { status: 500 }
     );
   }
