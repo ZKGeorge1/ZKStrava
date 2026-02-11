@@ -17,7 +17,6 @@ export default function ProofOfStravaContent() {
   const [isDemoMode, setIsDemoMode] = useState(false);
 
   useEffect(() => {
-    // Check if we're on Vercel (production)
     setIsDemoMode(window.location.hostname.includes('vercel.app'));
 
     const urlToken = searchParams?.get('token');
@@ -28,9 +27,7 @@ export default function ProofOfStravaContent() {
       localStorage.setItem('strava_token', urlToken);
     } else {
       const savedToken = localStorage.getItem('strava_token');
-      if (savedToken) {
-        setToken(savedToken);
-      }
+      if (savedToken) setToken(savedToken);
     }
 
     if (urlAthlete) {
@@ -48,9 +45,7 @@ export default function ProofOfStravaContent() {
       }
     }
 
-    if (urlToken) {
-      window.history.replaceState({}, '', '/');
-    }
+    if (urlToken) window.history.replaceState({}, '', '/');
   }, [searchParams]);
 
   const handleConnect = () => {
@@ -103,97 +98,95 @@ export default function ProofOfStravaContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8">
+    <div className="min-h-screen bg-[radial-gradient(1200px_600px_at_20%_0%,#f7fbff_0%,#ffffff_45%,#f2f6ff_100%)] flex items-center justify-center p-6 text-black relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#dbeafe] blur-3xl opacity-80"></div>
+        <div className="absolute top-16 -right-20 w-96 h-96 rounded-full bg-[#e2e8f0] blur-3xl opacity-80"></div>
+        <div className="absolute bottom-[-160px] left-1/2 w-[640px] h-[640px] -translate-x-1/2 rounded-full bg-[#eef2ff] blur-3xl opacity-60"></div>
+          <div className="absolute -bottom-16 -left-10 w-72 h-72 rounded-full bg-[#fff3d6] blur-3xl opacity-70"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(0,0,0,0.03)_1px,transparent_1px)] [background-size:40px_40px]"></div>
+        <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(rgba(0,0,0,0.5)_0.5px,transparent_0.5px)] [background-size:18px_18px]"></div>
+      </div>
+
+      <div className="max-w-2xl w-full bg-white/85 border border-black/10 rounded-[28px] shadow-[0_30px_100px_rgba(15,23,42,0.16)] p-8 text-center text-black backdrop-blur-xl relative">
         {isDemoMode && (
-          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl">⚡</span>
-              <div className="flex-1">
-                <h3 className="font-bold text-yellow-900 mb-1">Live UI Demo</h3>
-                <p className="text-sm text-yellow-800 mb-2">
-                  This is a demonstration of the interface. Full ZK proof generation requires running locally.
-                </p>
-                <a 
-                  href="https://github.com/ZKGeorge1/ZKStrava" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-semibold text-blue-600 hover:text-blue-800 underline"
-                >
-                  View on GitHub & Run Locally →
-                </a>
-              </div>
-            </div>
+          <div className="mb-4 border border-black rounded-xl p-3 text-sm text-black">
+            Demo mode. Full proof generation is available locally.
+            <a
+              href="https://github.com/ZKGeorge1/ZKStrava"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 underline underline-offset-2 text-black"
+            >
+              View repository
+            </a>
           </div>
         )}
 
-        <div className="text-center mb-8">
-          <div className="text-6xl mb-4">🏃‍♂️🔒</div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+        <div className="mb-6 space-y-3 -mt-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-white bg-gradient-to-r from-slate-900 to-slate-700 px-3 py-1 rounded-full shadow-sm">
+            ZK Health Insurance
+          </div>
+          <h1 className="text-[72px] sm:text-[96px] font-semibold tracking-tight text-black">
             Proof of Strava
           </h1>
-          <p className="text-gray-600">Zero-Knowledge Insurance Qualifier</p>
-        </div>
-
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-blue-900 text-sm">
-            <strong>🔐 Privacy First:</strong> Your exact workout data stays
-            private. We only prove you meet requirements.
+          <p className="text-black/70 text-sm">
+            Private verification for lower health insurance premiums.
           </p>
         </div>
 
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <h3 className="font-semibold text-gray-800 mb-3">
-            Qualification Requirements:
-          </h3>
-          <ul className="space-y-2 text-sm text-gray-700">
-            <li className="flex items-center">
-              <span className="text-green-600 font-bold mr-2">✓</span>
-              At least 12 workouts per month
-            </li>
-            <li className="flex items-center">
-              <span className="text-green-600 font-bold mr-2">✓</span>
-              Average distance ≥5km per workout
-            </li>
-            <li className="flex items-center">
-              <span className="text-green-600 font-bold mr-2">✓</span>
-              Total exercise time ≥10 hours
-            </li>
-          </ul>
+        <div className="mb-6 text-black text-sm space-y-3">
+          <div className="font-semibold uppercase tracking-wide text-[11px] text-black/70">Requirements</div>
+          <div className="mx-auto w-full max-w-[260px] space-y-2 text-left">
+            <div className="flex items-center justify-between rounded-lg border border-black/10 bg-white/90 px-3 py-2 shadow-[0_10px_28px_rgba(15,23,42,0.08)]">
+              <span>Workouts per month</span>
+              <span className="font-semibold">12+</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-black/10 bg-white/90 px-3 py-2 shadow-[0_10px_28px_rgba(15,23,42,0.08)]">
+              <span>Avg distance per workout</span>
+              <span className="font-semibold">5 km</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-black/10 bg-white/90 px-3 py-2 shadow-[0_10px_28px_rgba(15,23,42,0.08)]">
+              <span>Total time per month</span>
+              <span className="font-semibold">10 hrs</span>
+            </div>
+          </div>
         </div>
 
         {!token ? (
           <button
             onClick={handleConnect}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-4 rounded-lg transition flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-slate-900 to-slate-700 text-white font-semibold py-3 px-6 rounded-xl transition hover:opacity-95"
           >
-            <span>🔗</span>
             Connect with Strava
           </button>
         ) : (
           <>
             {athlete && (
-              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 mb-6 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+              <div className="border border-black rounded-xl p-3 mb-4 flex flex-col items-center justify-center gap-3">
+                <div className="flex flex-col items-center gap-2">
                   {athlete.profile && (
                     <img
                       src={athlete.profile}
                       alt="Profile"
-                      className="w-12 h-12 rounded-full"
+                      className="w-[250px] h-[250px] rounded-full border border-black"
                     />
                   )}
                   <div>
-                    <div className="font-semibold text-gray-800">
+                    <div className="font-semibold text-black">
                       {athlete.firstname} {athlete.lastname}
                     </div>
-                    <div className="text-sm text-green-700">Connected ✓</div>
+                    <div className="text-xs text-black">
+                      Connected to Strava
+                    </div>
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={handleDisconnect}
-                  className="text-sm text-gray-600 hover:text-gray-800"
+                  className="text-xs font-semibold text-black/80 underline underline-offset-4 hover:text-black"
                 >
-                  Disconnect
+                  Remove Strava account
                 </button>
               </div>
             )}
@@ -201,152 +194,128 @@ export default function ProofOfStravaContent() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Month
                   </label>
                   <select
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                    className="w-full max-w-[180px] mx-auto px-3 py-2 bg-white border border-black/10 rounded-xl text-black focus:outline-none transition"
                   >
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
+                    {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((m, i) => (
+                      <option key={i} value={i + 1}>{m}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Year
                   </label>
                   <select
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                    className="w-full max-w-[180px] mx-auto px-3 py-2 bg-white border border-black/10 rounded-xl text-black focus:outline-none transition"
                   >
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
+                    {['2023', '2024', '2025'].map(y => (
+                      <option key={y} value={y}>{y}</option>
+                    ))}
                   </select>
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold py-4 rounded-lg hover:opacity-90 transition disabled:opacity-50"
-              >
-                {loading ? 'Generating Proof...' : isDemoMode ? 'Try Demo (UI Only)' : 'Generate Proof 🚀'}
-              </button>
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full max-w-[220px] mx-auto bg-gradient-to-r from-slate-900 to-slate-700 text-white font-semibold py-3 px-6 rounded-xl transition hover:opacity-95 disabled:opacity-60"
+                >
+                  {loading ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Generating proof...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{isDemoMode ? 'Try demo' : 'Check eligibility'}</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           </>
         )}
 
         {loading && (
-          <div className="mt-6 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">
-              Generating zero-knowledge proof...
+          <div className="mt-4 text-center border border-black rounded-xl p-4 bg-white text-black text-sm">
+            <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <p className="text-black font-medium mb-1">
+              Checking eligibility
             </p>
-            <p className="text-sm text-gray-500 mt-2">This may take 10-30 seconds</p>
+            <p className="text-black text-sm">
+              This usually takes 10–30 seconds.
+            </p>
           </div>
         )}
 
         {result && !loading && (
-          <div
-            className={`mt-6 p-6 rounded-lg ${
-              result.error
-                ? 'bg-red-50 border-2 border-red-200'
-                : result.qualifies
-                ? 'bg-green-50 border-2 border-green-200'
-                : 'bg-yellow-50 border-2 border-yellow-200'
-            }`}
-          >
+          <div className="mt-4 border border-black rounded-xl p-4 text-black text-sm">
             {result.error ? (
               <div>
-                <h3 className="text-xl font-bold text-red-800 mb-2">
-                  {result.demoMode ? '⚡ Demo Mode' : '❌ Error'}
+                <h3 className="text-base font-semibold text-black mb-2">
+                  {result.demoMode ? 'Demo mode' : 'Error'}
                 </h3>
-                <p className="text-red-700 whitespace-pre-line">{result.error}</p>
-                {result.demoMode && (
-                  <div className="mt-4 p-3 bg-white rounded-lg">
-                    <p className="text-sm font-semibold text-gray-800 mb-2">To run the full zkApp:</p>
-                    <ol className="text-sm text-gray-700 space-y-1 list-decimal list-inside">
-                      <li>Clone: <code className="bg-gray-100 px-1 rounded">git clone https://github.com/ZKGeorge1/ZKStrava.git</code></li>
-                      <li>Install dependencies: <code className="bg-gray-100 px-1 rounded">npm install</code></li>
-                      <li>Run locally: <code className="bg-gray-100 px-1 rounded">npm run dev</code></li>
-                      <li>Connect Strava and generate real ZK proofs!</li>
-                    </ol>
-                  </div>
-                )}
+                <p className="text-black whitespace-pre-line leading-relaxed">{result.error}</p>
               </div>
             ) : result.qualifies ? (
               <div>
-                <h3 className="text-xl font-bold text-green-800 mb-4">
-                  ✅ Qualified for Insurance Discount!
+                <h3 className="text-base font-semibold text-black mb-2">
+                  Eligible for lower premium
                 </h3>
-                <div className="bg-white bg-opacity-50 rounded-lg p-4 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Workouts:</span>
-                    <span>{result.stats.workoutCount} ✓</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Avg Distance:</span>
-                    <span>
-                      {(result.stats.avgDistance / 1000).toFixed(2)}km ✓
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Total Time:</span>
-                    <span>
-                      {(result.stats.totalDuration / 60).toFixed(1)} hours ✓
-                    </span>
-                  </div>
+                <div className="space-y-3 mb-2 text-center">
+                  {[
+                    { label: 'Workouts', value: result.stats.workoutCount, unit: '' },
+                    { label: 'Avg Distance', value: (result.stats.avgDistance / 1000).toFixed(2), unit: 'km' },
+                    { label: 'Total Time', value: (result.stats.totalDuration / 60).toFixed(1), unit: 'hours' }
+                  ].map((stat, i) => (
+                    <div key={i} className="flex flex-col items-center gap-1">
+                      <span className="text-black/70 text-xs uppercase tracking-wide">{stat.label}</span>
+                      <span className="text-black font-semibold text-lg">
+                        {stat.value} {stat.unit}
+                        <span className="ml-2 text-emerald-600">✓</span>
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <p className="mt-4 text-green-800 font-semibold">
-                  🔒 Your exact workout data remains private!
-                </p>
+                <p className="text-sm text-black">Your raw workout data remains private.</p>
               </div>
             ) : (
               <div>
-                <h3 className="text-xl font-bold text-yellow-800 mb-4">
-                  ⚠️ Does Not Qualify Yet
+                <h3 className="text-base font-semibold text-black mb-2">
+                  Not eligible yet
                 </h3>
-                <div className="bg-white bg-opacity-50 rounded-lg p-4 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Workouts:</span>
-                    <span>
-                      {result.stats.workoutCount}{' '}
-                      {result.stats.workoutCount >= 12 ? '✓' : '✗'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Avg Distance:</span>
-                    <span>
-                      {(result.stats.avgDistance / 1000).toFixed(2)}km{' '}
-                      {result.stats.avgDistance >= 5000 ? '✓' : '✗'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Total Time:</span>
-                    <span>
-                      {(result.stats.totalDuration / 60).toFixed(1)}h{' '}
-                      {result.stats.totalDuration >= 600 ? '✓' : '✗'}
-                    </span>
-                  </div>
+                <div className="space-y-3 mb-2 text-center">
+                  {[
+                    { label: 'Workouts', value: result.stats.workoutCount, threshold: 12 },
+                    { label: 'Avg Distance', value: (result.stats.avgDistance / 1000).toFixed(2) + 'km', threshold: 5 },
+                    { label: 'Total Time', value: (result.stats.totalDuration / 60).toFixed(1) + 'h', threshold: 10 }
+                  ].map((stat, i) => (
+                    <div key={i} className="flex flex-col items-center gap-1">
+                      <span className="text-black/70 text-xs uppercase tracking-wide">{stat.label}</span>
+                      <span className="text-black font-semibold text-lg">
+                        {stat.value}{' '}
+                        {(i === 0 && result.stats.workoutCount >= 12) ||
+                        (i === 1 && result.stats.avgDistance >= 5000) ||
+                        (i === 2 && result.stats.totalDuration >= 600) ? (
+                          <span className="ml-2 text-emerald-600">✓</span>
+                        ) : (
+                          <span className="ml-2 text-red-600">✗</span>
+                        )}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <p className="mt-4 text-yellow-800">
-                  💪 Keep exercising to qualify!
-                </p>
+                <p className="text-sm text-black">Keep training to qualify for the lower premium.</p>
               </div>
             )}
           </div>
